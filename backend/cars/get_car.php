@@ -5,7 +5,7 @@ require_once __DIR__ . '/../db.php';
 header('Content-Type: application/json');
 
 // Verificar token
-$userData = checkAuth();
+// $userData = checkAuth();
 
 // Validar ID
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {

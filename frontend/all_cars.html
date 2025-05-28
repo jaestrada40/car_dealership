@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todos los Autos - AutoMontgomery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <header class="bg-gray-900 text-white py-4 px-6 shadow">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-bold">AutoMontgomery</h1>
+        <nav class="flex gap-4">
+          <a href="index.html" class="hover:text-blue-400">Inicio</a>
+          <a href="all_brands.html" class="hover:text-blue-400">Marcas</a>
+          <a href="all_cars.html" class="hover:text-blue-400">Vehículos</a>
+          <a href="cart.html" class="relative hover:text-blue-400">
+            🛒<span
+              id="cartBadge"
+              class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full"
+              >0</span
+            >
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto py-10 px-4">
+      <h2 class="text-2xl font-bold text-center mb-6">Todos los Vehículos</h2>
+
+      <!-- Filtros -->
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+        <input
+          type="text"
+          id="modelFilter"
+          placeholder="Buscar por modelo"
+          class="border rounded px-3 py-2"
+        />
+
+        <select id="yearFilter" class="border rounded px-3 py-2">
+          <option value="">Año</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+        </select>
+
+        <select id="transmissionFilter" class="border rounded px-3 py-2">
+          <option value="">Transmisión</option>
+          <option value="Automático">Automático</option>
+          <option value="Manual">Manual</option>
+        </select>
+
+        <select id="fuelFilter" class="border rounded px-3 py-2">
+          <option value="">Combustible</option>
+          <option value="Gasolina">Gasolina</option>
+          <option value="Diésel">Diésel</option>
+          <option value="Eléctrico">Eléctrico</option>
+        </select>
+
+        <input
+          type="number"
+          id="priceFilter"
+          placeholder="Precio máx."
+          class="border rounded px-3 py-2"
+        />
+      </div>
+
+      <!-- Resultados -->
+      <div
+        id="allCarsGrid"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      ></div>
+
+      <!-- Paginación -->
+      <div id="pagination" class="flex justify-center mt-10"></div>
+    </main>
+
+    <footer class="bg-gray-900 text-white text-sm text-center py-4 mt-10">
+      &copy; 2025 AutoMontgomery. Todos los derechos reservados.
+    </footer>
+
+    <script src="./js/all_cars.js"></script>
+    <script src="./js/cart-ui.js"></script>
+  </body>
+</html>

@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const brandTitle = document.getElementById("brandTitle");
 
   const urlParams = new URLSearchParams(window.location.search);
-  const brandId = urlParams.get("id");
-  const brandName = urlParams.get("name") || "Marca";
+  const brandId = urlParams.get("brand_id");
+  const brandName = urlParams.get("brand_name") || "Marca";
 
   if (!brandId) {
     carGrid.innerHTML =
@@ -14,11 +14,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  brandTitle.textContent = `Autos de ${brandName}`;
+  brandTitle.textContent = `Autos de ${decodeURIComponent(brandName)}`;
 
   try {
     const res = await fetch(
-      `./backend/cars/get_cars_by_brand.php?id=${brandId}`
+      `http://localhost/car_dealership/backend/cars/get_cars_by_brand.php?id=${brandId}`
     );
     const data = await res.json();
 

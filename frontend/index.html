@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AutoPrime - Concesionario</title>
+    <title>AutoMontgomery - Concesionario</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,53 +11,160 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@heroicons/react/24/outline"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
     <style>
       body {
         font-family: "Inter", sans-serif;
+        @apply bg-gray-50 text-gray-800;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Inter", sans-serif;
+      }
+      /* Estilos para las tarjetas de marcas */
+      .brand-card {
+        @apply bg-white rounded-lg shadow p-4 hover:shadow-lg transition cursor-pointer;
+        border: 2px solid #e5e7eb; /* Borde más visible, usando el color gray-200 de Tailwind */
+      }
+      .brand-card img {
+        @apply w-full h-40 object-contain mb-4 rounded;
+      }
+      .brand-card:hover {
+        @apply cursor-pointer; /* Reforzamos el cursor para asegurar que aparezca la "manita" */
       }
     </style>
   </head>
-  <body class="bg-gray-50 text-gray-800">
+  <body>
     <!-- Navbar -->
     <header class="bg-gray-900 text-white sticky top-0 z-50 shadow">
       <div
         class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between"
       >
         <h1 class="text-2xl font-bold">AutoMontgomery</h1>
-        <div class="flex items-center gap-6">
-          <nav id="menu" class="hidden md:flex gap-6 font-medium">
-            <a href="#brands" class="hover:text-blue-400">Marcas</a>
-            <a href="#cars" class="hover:text-blue-400">Vehículos</a>
-            <a href="#parts" class="hover:text-blue-400">Repuestos</a>
+        <div class="flex items-center gap-8">
+          <button id="mobileMenuBtn" class="md:hidden focus:outline-none">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+          <nav id="menu" class="hidden md:flex gap-8 font-medium text-lg">
+            <a
+              href="#brands"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Marcas</a
+            >
+            <a
+              href="#cars"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Vehículos</a
+            >
+            <a
+              href="#parts"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Repuestos</a
+            >
           </nav>
+          <div
+            id="mobileMenu"
+            class="hidden absolute top-full left-0 w-full bg-gray-900 text-white flex flex-col items-center gap-4 py-4 md:hidden"
+          >
+            <a
+              href="#brands"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Marcas</a
+            >
+            <a
+              href="#cars"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Vehículos</a
+            >
+            <a
+              href="#parts"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Repuestos</a
+            >
+          </div>
           <a href="cart.html" class="relative">
-            🛒<span
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+            <span
               id="cartBadge"
-              class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full"
+              class="absolute -top-2 -right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full"
               >0</span
             >
           </a>
           <div class="relative">
-            <button id="userIcon">👤</button>
+            <button id="userIcon">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                ></path>
+              </svg>
+            </button>
             <div
               id="userDropdown"
-              class="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg hidden"
+              class="absolute right-0 mt-2 w-48 bg-white text-gray-900 rounded-lg shadow-xl hidden"
             >
               <button
                 id="loginBtn"
-                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                class="block w-full text-left px-4 py-3 hover:bg-gray-100 transition"
               >
                 Ingresar
               </button>
               <a
                 href="profile.html"
                 id="viewProfileBtn"
-                class="block w-full text-left px-4 py-2 hover:bg-gray-100 hidden"
+                class="block w-full text-left px-4 py-3 hover:bg-gray-100 transition hidden"
                 >Ver Perfil</a
               >
               <button
                 id="logoutBtn"
-                class="block w-full text-left px-4 py-2 hover:bg-gray-100 hidden"
+                class="block w-full text-left px-4 py-3 hover:bg-gray-100 transition hidden"
               >
                 Cerrar Sesión
               </button>
@@ -69,74 +176,84 @@
 
     <!-- Hero -->
     <section
-      class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-24 px-4 text-center"
+      class="relative bg-cover bg-center py-32 px-4 text-center text-white"
+      style="
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.6),
+            rgba(0, 0, 0, 0.6)
+          ),
+          url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      "
+      data-aos="fade-up"
     >
-      <div class="max-w-2xl mx-auto">
-        <h2 class="text-4xl font-bold mb-4">
-          Tu próximo auto te está esperando
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-5xl font-bold mb-6 tracking-tight">
+          Encuentra el Auto de Tus Sueños
         </h2>
-        <p class="text-lg mb-6">
-          Explora marcas, modelos y repuestos de calidad
+        <p class="text-xl mb-8 opacity-90">
+          Explora nuestra selección de marcas, modelos y repuestos de primera
+          calidad
         </p>
         <a
           href="#cars"
-          class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded shadow transition"
+          class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-full font-semibold text-lg shadow-lg transition-transform transform hover:scale-105"
           >Ver Catálogo</a
         >
       </div>
     </section>
 
-    <!-- Brands Carousel -->
-    <section id="brands" class="py-16 px-4 bg-white">
-      <div class="flex justify-between items-center max-w-6xl mx-auto mb-4">
-        <h2 class="text-2xl font-bold text-gray-800">Marcas Destacadas</h2>
-        <a href="all_brands.html" class="text-blue-600 text-sm hover:underline"
+    <!-- Brands Grid -->
+    <section id="brands" class="max-w-6xl mx-auto px-4 py-10">
+      <div class="flex justify-between items-center max-w-7xl mx-auto mb-8">
+        <h2 class="text-4xl font-bold text-gray-900 tracking-tight">
+          Marcas Destacadas
+        </h2>
+        <a
+          href="all_brands.html"
+          class="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200"
           >Ver más</a
         >
       </div>
-      <div class="max-w-6xl mx-auto overflow-x-auto">
-        <div class="flex gap-6 w-max" id="brand-carousel">
-          <!-- Marcas cargadas dinámicamente -->
-        </div>
+      <div id="loadingBrands" class="text-center text-gray-600 py-12 hidden">
+        <div
+          class="inline-block w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"
+        ></div>
+        <p class="mt-4">Cargando marcas...</p>
+      </div>
+      <div id="noBrands" class="text-center text-gray-500 py-8 hidden">
+        No se encontraron marcas.
+      </div>
+      <div
+        id="brandGrid"
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+      >
+        <!-- Marcas cargadas dinámicamente -->
       </div>
     </section>
 
     <!-- Vehicles Section -->
-    <section id="cars" class="py-16 px-4 bg-gray-100">
-      <div class="flex justify-between items-center max-w-6xl mx-auto mb-4">
-        <h2 class="text-2xl font-bold text-gray-800">Vehículos</h2>
-        <a href="all_cars.html" class="text-blue-600 text-sm hover:underline"
+    <section id="cars" class="py-20 px-4 bg-gray-100" data-aos="fade-up">
+      <div class="flex justify-between items-center max-w-7xl mx-auto mb-6">
+        <h2 class="text-3xl font-bold text-gray-900">Vehículos</h2>
+        <a
+          href="all_cars.html"
+          class="text-blue-600 font-medium hover:underline"
           >Ver más</a
         >
       </div>
-      <div class="max-w-6xl mx-auto">
-        <div
-          class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6"
-        >
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Buscar por modelo o marca"
-            class="w-full md:w-1/2 px-4 py-2 border rounded shadow-sm focus:ring focus:outline-none"
-          />
-          <select
-            id="transmissionFilter"
-            class="px-4 py-2 border rounded shadow-sm w-full md:w-auto"
-          >
-            <option value="">Filtrar por transmisión</option>
-            <option value="Automático">Automático</option>
-            <option value="Manual">Manual</option>
-          </select>
+      <div class="max-w-7xl mx-auto">
+        <div id="loading" class="text-center text-gray-600 py-12 hidden">
+          <div
+            class="inline-block w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"
+          ></div>
+          <p class="mt-4">Cargando autos...</p>
         </div>
-        <div id="loading" class="text-center text-gray-500 py-10 hidden">
-          Cargando autos...
-        </div>
-        <div id="noResults" class="text-center text-gray-400 py-6 hidden">
+        <div id="noResults" class="text-center text-gray-500 py-8 hidden">
           No se encontraron autos.
         </div>
         <div
           id="carGrid"
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <!-- Vehículos cargados dinámicamente -->
         </div>
@@ -144,16 +261,18 @@
     </section>
 
     <!-- Repuestos Section -->
-    <section id="parts" class="py-16 px-4 bg-white">
-      <div class="flex justify-between items-center max-w-6xl mx-auto mb-4">
-        <h2 class="text-2xl font-bold text-gray-800">Repuestos Populares</h2>
-        <a href="all_parts.html" class="text-blue-600 text-sm hover:underline"
+    <section id="parts" class="py-20 px-4 bg-white" data-aos="fade-up">
+      <div class="flex justify-between items-center max-w-7xl mx-auto mb-6">
+        <h2 class="text-3xl font-bold text-gray-900">Repuestos Populares</h2>
+        <a
+          href="all_parts.html"
+          class="text-blue-600 font-medium hover:underline"
           >Ver más</a
         >
       </div>
       <div
         id="partsGrid"
-        class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
       >
         <!-- Repuestos cargados dinámicamente -->
       </div>
@@ -165,7 +284,7 @@
         class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
       >
         <div>
-          <h4 class="text-xl font-semibold mb-3">AutosMontgomery</h4>
+          <h4 class="text-xl font-semibold mb-3">AutoMontgomery</h4>
           <p class="text-sm text-gray-400">
             Tu concesionario de confianza para autos y repuestos de calidad.
           </p>
@@ -197,10 +316,15 @@
         </div>
       </div>
       <div class="bg-gray-800 text-center text-sm text-gray-400 py-4">
-        &copy; 2025 AutoPrime. Todos los derechos reservados.
+        © 2025 AutoMontgomery. Todos los derechos reservados.
       </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+      AOS.init({ duration: 800, once: true });
+    </script>
     <script src="./js/brands.js"></script>
     <script src="./js/cars.js"></script>
     <script src="./js/parts.js"></script>

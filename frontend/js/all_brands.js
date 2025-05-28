@@ -1,4 +1,4 @@
-// all_brands.js
+// js/all_brands.js
 
 document.addEventListener("DOMContentLoaded", () => {
   const brandsContainer = document.getElementById("brandsGrid");
