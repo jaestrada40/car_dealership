@@ -46,6 +46,188 @@
       </div>
     </main>
 
+    <!-- Modal Login/Register -->
+    <div
+      id="authModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+    >
+      <div class="bg-white rounded-lg w-full max-w-md p-6 shadow-lg">
+        <div class="flex justify-between mb-4 border-b pb-2">
+          <button
+            id="loginTab"
+            class="font-bold text-gray-700 border-b-2 border-blue-600"
+          >
+            Iniciar Sesión
+          </button>
+          <button id="registerTab" class="text-gray-500">Crear Cuenta</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="space-y-4">
+          <input
+            type="text"
+            id="loginIdentifier"
+            placeholder="Email o Usuario"
+            class="w-full px-4 py-2 border rounded"
+            required
+          />
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Contraseña"
+            class="w-full px-4 py-2 border rounded"
+            required
+          />
+          <button
+            type="submit"
+            class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          >
+            Ingresar
+          </button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="registerForm" class="space-y-4 hidden mt-4">
+          <input
+            type="text"
+            id="regFirstName"
+            placeholder="Nombre"
+            class="w-full px-4 py-2 border rounded"
+            required
+          />
+          <input
+            type="text"
+            id="regLastName"
+            placeholder="Apellido"
+            class="w-full px-4 py-2 border rounded"
+            required
+          />
+          <input
+            type="email"
+            id="regEmail"
+            placeholder="Correo electrónico"
+            class="w-full px-4 py-2 border rounded"
+            required
+          />
+          <input
+            type="text"
+            id="regUsername"
+            placeholder="Usuario"
+            class="w-full px-4 py-2 border rounded"
+            required
+          />
+          <input
+            type="password"
+            id="regPassword"
+            placeholder="Contraseña"
+            class="w-full px-4 py-2 border rounded"
+            required
+          />
+          <button
+            type="submit"
+            class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700"
+          >
+            Registrarse
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- Modal de Pago -->
+    <div
+      id="paymentModal"
+      class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden"
+    >
+      <div class="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
+        <h2 class="text-xl font-bold mb-4 text-center">Finalizar compra</h2>
+        <form id="paymentForm" class="space-y-4">
+          <input
+            id="shippingAddress"
+            type="text"
+            placeholder="Dirección de envío"
+            class="w-full border rounded px-3 py-2"
+            required
+          />
+
+          <div class="space-y-2">
+            <label class="block font-medium">Método de pago:</label>
+            <label class="inline-flex items-center gap-2">
+              <input type="radio" name="payment_method" value="efectivo" />
+              Efectivo
+            </label>
+            <label class="inline-flex items-center gap-2">
+              <input type="radio" name="payment_method" value="tarjeta" />
+              Tarjeta de Crédito
+            </label>
+          </div>
+
+          <div id="cardFields" class="space-y-3 hidden">
+            <input
+              id="cardNumber"
+              type="text"
+              placeholder="Número de tarjeta"
+              class="w-full border rounded px-3 py-2"
+            />
+            <input
+              id="cardHolder"
+              type="text"
+              placeholder="Nombre del titular"
+              class="w-full border rounded px-3 py-2"
+            />
+            <div class="flex gap-3">
+              <input
+                id="cardExpiry"
+                type="text"
+                placeholder="MM/AA"
+                class="w-1/2 border rounded px-3 py-2"
+              />
+              <input
+                id="cardCVV"
+                type="text"
+                placeholder="CVV"
+                class="w-1/2 border rounded px-3 py-2"
+              />
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center mt-6">
+            <button
+              type="submit"
+              class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+              Confirmar pago
+            </button>
+            <button
+              type="button"
+              onclick="document.getElementById('paymentModal').classList.add('hidden')"
+              class="text-gray-500 underline"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal de éxito -->
+    <div
+      id="successModal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
+        <div id="successContent" class="text-center">
+          <!-- Aquí se insertará el resumen del pedido -->
+        </div>
+        <div class="text-center mt-4">
+          <button
+            onclick="location.reload()"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+
     <footer class="bg-gray-900 text-white mt-auto">
       <div
         class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm"

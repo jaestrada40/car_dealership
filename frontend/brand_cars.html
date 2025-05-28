@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autos por Marca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <header
+      class="bg-gray-900 text-white px-4 py-4 flex justify-between items-center"
+    >
+      <h1 class="text-2xl font-bold">AutoPrime</h1>
+      <a href="index.html" class="hover:text-blue-400">Inicio</a>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-10">
+      <h2 id="brandTitle" class="text-3xl font-bold mb-6">Autos de la marca</h2>
+      <div
+        id="carsGrid"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <!-- Aquí se cargarán los autos -->
+      </div>
+    </main>
+
+    <footer class="bg-gray-900 text-white text-center py-4 mt-10">
+      © 2025 AutoPrime. Todos los derechos reservados.
+    </footer>
+
+    <script src="./js/brand_cars.js"></script>
+  </body>
+</html>

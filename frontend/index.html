@@ -23,34 +23,47 @@
       <div
         class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between"
       >
-        <h1 class="text-2xl font-bold">AutoPrime</h1>
-        <button id="menu-btn" class="md:hidden focus:outline-none">
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
-        <nav id="menu" class="hidden md:flex gap-6 font-medium">
-          <a href="#brands" class="hover:text-blue-400">Marcas</a>
-          <a href="#cars" class="hover:text-blue-400">Vehículos</a>
-          <a href="#parts" class="hover:text-blue-400">Repuestos</a>
-          <a href="cart.html" class="hover:text-blue-400">Carrito</a>
-        </nav>
-      </div>
-      <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
-        <a href="#brands" class="block py-2">Marcas</a>
-        <a href="#cars" class="block py-2">Vehículos</a>
-        <a href="#parts" class="block py-2">Repuestos</a>
-        <a href="#cart" class="block py-2">Carrito</a>
+        <h1 class="text-2xl font-bold">AutoMontgomery</h1>
+        <div class="flex items-center gap-6">
+          <nav id="menu" class="hidden md:flex gap-6 font-medium">
+            <a href="#brands" class="hover:text-blue-400">Marcas</a>
+            <a href="#cars" class="hover:text-blue-400">Vehículos</a>
+            <a href="#parts" class="hover:text-blue-400">Repuestos</a>
+          </nav>
+          <a href="cart.html" class="relative">
+            🛒<span
+              id="cartBadge"
+              class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full"
+              >0</span
+            >
+          </a>
+          <div class="relative">
+            <button id="userIcon">👤</button>
+            <div
+              id="userDropdown"
+              class="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg hidden"
+            >
+              <button
+                id="loginBtn"
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+              >
+                Ingresar
+              </button>
+              <a
+                href="profile.html"
+                id="viewProfileBtn"
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100 hidden"
+                >Ver Perfil</a
+              >
+              <button
+                id="logoutBtn"
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100 hidden"
+              >
+                Cerrar Sesión
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -75,21 +88,27 @@
 
     <!-- Brands Carousel -->
     <section id="brands" class="py-16 px-4 bg-white">
-      <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">
-        Marcas Destacadas
-      </h2>
+      <div class="flex justify-between items-center max-w-6xl mx-auto mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">Marcas Destacadas</h2>
+        <a href="all_brands.html" class="text-blue-600 text-sm hover:underline"
+          >Ver más</a
+        >
+      </div>
       <div class="max-w-6xl mx-auto overflow-x-auto">
         <div class="flex gap-6 w-max" id="brand-carousel">
-          <!-- Marcas cargadas dinámicamente desde la base de datos -->
+          <!-- Marcas cargadas dinámicamente -->
         </div>
       </div>
     </section>
 
     <!-- Vehicles Section -->
     <section id="cars" class="py-16 px-4 bg-gray-100">
-      <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">
-        Vehículos
-      </h2>
+      <div class="flex justify-between items-center max-w-6xl mx-auto mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">Vehículos</h2>
+        <a href="all_cars.html" class="text-blue-600 text-sm hover:underline"
+          >Ver más</a
+        >
+      </div>
       <div class="max-w-6xl mx-auto">
         <div
           class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6"
@@ -109,31 +128,29 @@
             <option value="Manual">Manual</option>
           </select>
         </div>
-
-        <!-- Spinner de carga -->
         <div id="loading" class="text-center text-gray-500 py-10 hidden">
           Cargando autos...
         </div>
-
-        <!-- Mensaje sin resultados -->
         <div id="noResults" class="text-center text-gray-400 py-6 hidden">
           No se encontraron autos.
         </div>
-
         <div
           id="carGrid"
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          <!-- Vehículos insertados dinámicamente -->
+          <!-- Vehículos cargados dinámicamente -->
         </div>
       </div>
     </section>
 
     <!-- Repuestos Section -->
     <section id="parts" class="py-16 px-4 bg-white">
-      <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">
-        Repuestos Populares
-      </h2>
+      <div class="flex justify-between items-center max-w-6xl mx-auto mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">Repuestos Populares</h2>
+        <a href="all_parts.html" class="text-blue-600 text-sm hover:underline"
+          >Ver más</a
+        >
+      </div>
       <div
         id="partsGrid"
         class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -141,13 +158,14 @@
         <!-- Repuestos cargados dinámicamente -->
       </div>
     </section>
+
     <!-- Footer -->
     <footer class="bg-gray-900 text-white mt-16">
       <div
         class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
       >
         <div>
-          <h4 class="text-xl font-semibold mb-3">AutoPrime</h4>
+          <h4 class="text-xl font-semibold mb-3">AutosMontgomery</h4>
           <p class="text-sm text-gray-400">
             Tu concesionario de confianza para autos y repuestos de calidad.
           </p>
@@ -155,26 +173,16 @@
         <div>
           <h4 class="font-semibold mb-3">Navegación</h4>
           <ul class="text-sm space-y-2">
-            <li>
-              <a href="index.html#brands" class="hover:text-blue-400">Marcas</a>
-            </li>
-            <li>
-              <a href="index.html#cars" class="hover:text-blue-400"
-                >Vehículos</a
-              >
-            </li>
-            <li>
-              <a href="index.html#parts" class="hover:text-blue-400"
-                >Repuestos</a
-              >
-            </li>
+            <li><a href="#brands" class="hover:text-blue-400">Marcas</a></li>
+            <li><a href="#cars" class="hover:text-blue-400">Vehículos</a></li>
+            <li><a href="#parts" class="hover:text-blue-400">Repuestos</a></li>
             <li><a href="cart.html" class="hover:text-blue-400">Carrito</a></li>
           </ul>
         </div>
         <div>
           <h4 class="font-semibold mb-3">Contacto</h4>
           <ul class="text-sm space-y-2 text-gray-400">
-            <li>Email: info@autoprime.com</li>
+            <li>Email: info@automotgomery.com</li>
             <li>Tel: +502 1234 5678</li>
             <li>Ciudad de Guatemala, GT</li>
           </ul>
@@ -196,5 +204,6 @@
     <script src="./js/brands.js"></script>
     <script src="./js/cars.js"></script>
     <script src="./js/parts.js"></script>
+    <script src="./js/cart-ui.js"></script>
   </body>
 </html>

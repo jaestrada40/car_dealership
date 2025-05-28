@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil - AutoPrime</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- Navbar -->
+    <header class="bg-gray-900 text-white sticky top-0 z-50 shadow">
+      <div
+        class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <h1 class="text-2xl font-bold">AutoPrime</h1>
+        <div class="flex items-center gap-6">
+          <a href="index.html" class="hover:text-blue-400">Inicio</a>
+          <a href="cart.html" class="relative">
+            🛒<span
+              id="cartBadge"
+              class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full"
+              >0</span
+            >
+          </a>
+          <div class="relative">
+            <button id="userIcon">👤</button>
+            <div
+              id="userDropdown"
+              class="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg hidden"
+            >
+              <button
+                id="loginBtn"
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+              >
+                Ingresar
+              </button>
+              <button
+                id="viewProfileBtn"
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100 hidden"
+              >
+                Ver Perfil
+              </button>
+              <button
+                id="logoutBtn"
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100 hidden"
+              >
+                Cerrar Sesión
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Perfil de usuario -->
+    <main class="max-w-4xl mx-auto px-4 py-10">
+      <h2 class="text-3xl font-bold text-center mb-8">Mi Perfil</h2>
+
+      <section class="bg-white p-6 rounded-lg shadow mb-8">
+        <h3 class="text-xl font-semibold mb-4">Información Personal</h3>
+        <div id="profileInfo" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Aquí se cargará el perfil -->
+        </div>
+      </section>
+
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-xl font-semibold mb-4">Historial de Pedidos</h3>
+        <div id="ordersList">
+          <!-- Aquí se cargará el historial de pedidos -->
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white mt-16">
+      <div class="text-center py-6 text-sm">
+        © 2025 AutoPrime. Todos los derechos reservados.
+      </div>
+    </footer>
+
+    <script src="./js/cart-ui.js"></script>
+    <script src="./js/user-ui.js"></script>
+    <script src="./js/profile.js"></script>
+  </body>
+</html>
