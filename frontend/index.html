@@ -36,14 +36,33 @@
       }
       /* Estilos para las tarjetas de marcas */
       .brand-card {
-        @apply bg-white rounded-lg shadow p-4 hover:shadow-lg transition cursor-pointer;
-        border: 2px solid #e5e7eb; /* Borde más visible, usando el color gray-200 de Tailwind */
+        background-color: #ffffff;
+        border-radius: 1rem; /* Bordes más redondeados */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        padding: 1rem;
+        text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: 1px solid #e5e7eb;
       }
-      .brand-card img {
-        @apply w-full h-40 object-contain mb-4 rounded;
-      }
+
       .brand-card:hover {
-        @apply cursor-pointer; /* Reforzamos el cursor para asegurar que aparezca la "manita" */
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+      }
+
+      .brand-card img {
+        width: 100%;
+        height: 120px;
+        object-fit: contain;
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+      }
+
+      .brand-card h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #1f2937; /* gray-800 */
       }
     </style>
   </head>
