@@ -1,0 +1,149 @@
+:root {
+  --blanco: #eff0f0;
+  --azul1: #616db7;
+  --azul2: #4b5aac;
+  --azul3: #394195;
+  --naranja: #e88b57;
+}
+
+/* Fuente base */
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
+  background-color: var(--azul3);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar .logo {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.navbar nav {
+  flex: 1;
+  text-align: right;
+}
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+}
+.navbar a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
+}
+.navbar a:hover {
+  color: var(--naranja);
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(120deg, #2a4365, #1a365d);
+  color: white;
+}
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.hero p {
+  font-size: 1.25rem;
+}
+
+/* Secciones */
+section {
+  padding: 3rem 2rem;
+}
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1a365d;
+}
+
+.brand-carousel,
+.car-list,
+.part-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.brand-carousel img,
+.car-card img,
+.part-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.car-card,
+.part-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+  transition: transform 0.2s;
+}
+.car-card:hover,
+.part-card:hover {
+  transform: translateY(-5px);
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #1e2a38;
+  color: white;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .navbar nav {
+    width: 100%;
+    text-align: left;
+  }
+  .navbar ul {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding-left: 0;
+    margin: 1rem 0 0 0;
+  }
+  .navbar li {
+    width: 100%;
+  }
+  .navbar a {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+}

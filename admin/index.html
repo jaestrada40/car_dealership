@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="Uploads/logo-Photoroom.png" type="image/png" />
+    <title>Administración - AutoMontgomery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #1f2937; /* gray-800 */
+        color: white;
+        padding: 1rem;
+      }
+      .content {
+        margin-left: 250px;
+        padding: 2rem;
+      }
+      .table-container {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      th {
+        background-color: #f3f4f6; /* gray-100 */
+        font-weight: 600;
+      }
+      .create-btn {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+      }
+      .tab-active {
+        background-color: #374151; /* gray-700 */
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Sidebar -->
+    <div class="sidebar flex flex-col justify-between">
+      <div>
+        <div class="flex items-center gap-2 mb-6">
+          <img
+            src="../Uploads/logo.png"
+            alt="Logo"
+            class="w-10 h-10 rounded-full"
+          />
+          <h2 class="text-xl font-bold">AutoMontgomery</h2>
+        </div>
+        <div class="mb-6 text-center">
+          <img
+            id="userImage"
+            src="../Uploads/user.png"
+            alt="User Image"
+            class="w-20 h-20 rounded-full mx-auto mb-2"
+          />
+          <span id="userName" class="text-lg font-semibold block"></span>
+        </div>
+        <nav class="space-y-2">
+          <a
+            href="#"
+            id="navDashboard"
+            class="block px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            >Dashboard</a
+          >
+          <a
+            href="#"
+            id="navUsers"
+            class="block px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            >Usuarios</a
+          >
+          <a
+            href="#"
+            id="navCategories"
+            class="block px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            >Categoría Productos</a
+          >
+          <a
+            href="#"
+            id="navProducts"
+            class="block px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            >Productos</a
+          >
+          <a
+            href="#"
+            id="navBrands"
+            class="block px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            >Marcas</a
+          >
+          <a
+            href="#"
+            id="navCars"
+            class="block px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            >Automóviles</a
+          >
+          <a
+            href="#"
+            id="navQuotes"
+            class="block px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            >Cotizaciones</a
+          >
+          <a
+            href="#"
+            id="navAppointments"
+            class="block px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            >Citas</a
+          >
+        </nav>
+      </div>
+      <button
+        id="logoutBtn"
+        class="w-full text-left px-4 py-2 bg-slate-950 hover:bg-orange-700 rounded-lg transition"
+      >
+        Cerrar Sesión
+      </button>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="content">
+      <!-- Sección de Dashboard -->
+      <div id="dashboardSection">
+        <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
+        <div class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-semibold mb-4">Estadísticas Generales</h2>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
+          >
+            <div class="bg-blue-100 p-4 rounded-lg text-center">
+              <h3 class="text-lg font-medium">Automóviles</h3>
+              <p id="totalCars" class="text-2xl font-bold">0</p>
+            </div>
+            <div class="bg-green-100 p-4 rounded-lg text-center">
+              <h3 class="text-lg font-medium">Usuarios</h3>
+              <p id="totalUsers" class="text-2xl font-bold">0</p>
+            </div>
+            <div class="bg-yellow-100 p-4 rounded-lg text-center">
+              <h3 class="text-lg font-medium">Marcas</h3>
+              <p id="totalBrands" class="text-2xl font-bold">0</p>
+            </div>
+            <div class="bg-purple-100 p-4 rounded-lg text-center">
+              <h3 class="text-lg font-medium">Productos</h3>
+              <p id="totalProducts" class="text-2xl font-bold">0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de Usuarios -->
+      <div id="usersSection" class="hidden">
+        <h1 class="text-2xl font-bold mb-6">Administrar Usuarios</h1>
+        <div class="table-container bg-white rounded-lg shadow">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <!-- Usuarios cargados dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+        <button
+          id="createUserBtn"
+          class="create-btn bg-blue-600 text-white p-4 rounded-full hover:bg-blue-700 transition"
+          title="Agregar Usuario"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Sección de Productos -->
+      <div id="productsSection" class="hidden">
+        <h1 class="text-2xl font-bold mb-6">Administrar Productos</h1>
+        <div class="table-container bg-white rounded-lg shadow">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Categoría</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody">
+              <!-- Productos cargados dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+        <button
+          id="createProductBtn"
+          class="create-btn bg-green-600 text-white p-4 rounded-full hover:bg-green-700 transition"
+          title="Agregar Producto"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Sección de Categorías -->
+      <div id="categoriesSection" class="hidden">
+        <h1 class="text-2xl font-bold mb-6">Administrar Categorías</h1>
+        <div class="table-container bg-white rounded-lg shadow">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Fecha de Creación</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="categoriesTableBody">
+              <!-- Categorías cargadas dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+        <button
+          id="createCategoryBtn"
+          class="create-btn bg-purple-600 text-white p-4 rounded-full hover:bg-purple-700 transition"
+          title="Agregar Categoría"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Sección de Marcas -->
+      <div id="brandsSection" class="hidden">
+        <h1 class="text-2xl font-bold mb-6">Administrar Marcas</h1>
+        <div class="table-container bg-white rounded-lg shadow">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="brandsTableBody">
+              <!-- Marcas cargadas dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+        <button
+          id="createBrandBtn"
+          class="create-btn bg-indigo-600 text-white p-4 rounded-full hover:bg-indigo-700 transition"
+          title="Agregar Marca"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Sección de Automóviles -->
+      <div id="carsSection" class="hidden">
+        <h1 class="text-2xl font-bold mb-6">Administrar Automóviles</h1>
+        <div class="table-container bg-white rounded-lg shadow">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Año</th>
+                <th>Precio</th>
+                <th>Color</th>
+                <th>Kilometraje</th>
+                <th>Tipo de Combustible</th>
+                <th>Transmisión</th>
+                <th>Imagen</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="carsTableBody">
+              <!-- Automóviles cargados dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+        <button
+          id="createCarBtn"
+          class="create-btn bg-teal-600 text-white p-4 rounded-full hover:bg-teal-700 transition"
+          title="Agregar Automóvil"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Sección de Cotizaciones -->
+      <div id="quotesSection" class="hidden">
+        <h1 class="text-2xl font-bold mb-6">Administrar Cotizaciones</h1>
+        <div class="table-container bg-white rounded-lg shadow">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Repuesto</th>
+                <th>Nombre Completo</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Cantidad</th>
+                <th>Comentario</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="quotesTableBody">
+              <!-- Cotizaciones cargadas dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sección de Citas -->
+      <div id="appointmentsSection" class="hidden">
+        <h1 class="text-2xl font-bold mb-6">Administrar Citas</h1>
+        <div class="table-container bg-white rounded-lg shadow">
+          <table>
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="px-4 py-2 text-left">ID</th>
+                <th class="px-4 py-2 text-left">Marca</th>
+                <th class="px-4 py-2 text-left">Modelo</th>
+                <th class="px-4 py-2 text-left">Año</th>
+                <th class="px-4 py-2 text-left">Imagen</th>
+                <th class="px-4 py-2 text-left">Nombre Cliente</th>
+                <th class="px-4 py-2 text-left">Teléfono</th>
+                <th class="px-4 py-2 text-left">Correo</th>
+                <th class="px-4 py-2 text-left">Fecha</th>
+                <th class="px-4 py-2 text-left">Hora</th>
+                <th class="px-4 py-2 text-left">Comentario</th>
+                <th class="px-4 py-2 text-left">Estado</th>
+                <th class="px-4 py-2 text-left">Creado</th>
+                <th class="px-4 py-2 text-left">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="appointmentsTableBody">
+              <!-- Citas cargadas dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================
+         Modales y Formularios
+         ======================================= -->
+
+    <!-- Modal para Crear/Editar Usuario -->
+    <div
+      id="userModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+    >
+      <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+          <h3 id="userModalTitle" class="text-xl font-semibold">
+            Crear Nuevo Usuario
+          </h3>
+          <button
+            id="closeUserModalBtn"
+            class="text-gray-500 hover:text-gray-700"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <form id="userForm" class="space-y-4">
+          <input type="hidden" id="userId" />
+          <div>
+            <label for="firstName" class="block text-sm font-medium"
+              >Nombre</label
+            >
+            <input
+              type="text"
+              id="firstName"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label for="lastName" class="block text-sm font-medium"
+              >Apellido</label
+            >
+            <input
+              type="text"
+              id="lastName"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium">Correo</label>
+            <input
+              type="email"
+              id="email"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label for="username" class="block text-sm font-medium"
+              >Usuario</label
+            >
+            <input
+              type="text"
+              id="username"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label for="password" class="block text-sm font-medium"
+              >Contraseña</label
+            >
+            <input
+              type="password"
+              id="password"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label for="role" class="block text-sm font-medium">Rol</label>
+            <select
+              id="role"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            >
+              <option value="client">Cliente</option>
+              <option value="admin">Administrador</option>
+            </select>
+          </div>
+          <div>
+            <label for="userImageInput" class="block text-sm font-medium"
+              >Imagen</label
+            >
+            <input
+              type="file"
+              id="userImageInput"
+              accept="image/*"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input type="hidden" id="userImage" />
+          </div>
+          <button
+            id="submitUserBtn"
+            type="submit"
+            class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+          >
+            Guardar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal para Confirmación de Eliminación -->
+    <div
+      id="deleteConfirmModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+    >
+      <div class="bg-white rounded-lg p-6 w-full max-w-md text-center">
+        <h3 class="text-xl font-semibold text-red-600 mb-4">¿Estás seguro?</h3>
+        <p class="text-gray-600 mb-6">
+          Esta acción eliminará el elemento seleccionado permanentemente.
+          ¿Deseas continuar?
+        </p>
+        <div class="flex justify-center gap-4">
+          <button
+            id="confirmDeleteBtn"
+            class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
+          >
+            Sí, estoy seguro
+          </button>
+          <button
+            id="cancelDeleteBtn"
+            class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para Crear/Editar Producto -->
+    <div
+      id="productModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+    >
+      <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+          <h3 id="productModalTitle" class="text-xl font-semibold">
+            Crear Nuevo Producto
+          </h3>
+          <button
+            id="closeProductModalBtn"
+            class="text-gray-500 hover:text-gray-700"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <form id="productForm" class="space-y-4">
+          <input type="hidden" id="productId" />
+          <div>
+            <label for="productName" class="block text-sm font-medium"
+              >Nombre</label
+            >
+            <input
+              type="text"
+              id="productName"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label for="productDescription" class="block text-sm font-medium"
+              >Descripción</label
+            >
+            <textarea
+              id="productDescription"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            ></textarea>
+          </div>
+          <div>
+            <label for="productPrice" class="block text-sm font-medium"
+              >Precio</label
+            >
+            <input
+              type="number"
+              id="productPrice"
+              step="0.01"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label for="productStock" class="block text-sm font-medium"
+              >Stock</label
+            >
+            <input
+              type="number"
+              id="productStock"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label for="productCategoryId" class="block text-sm font-medium"
+              >Categoría</label
+            >
+            <select
+              id="productCategoryId"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Seleccione una categoría</option>
+              <!-- Opciones dinámicas -->
+            </select>
+          </div>
+          <div>
+            <label for="productImageInput" class="block text-sm font-medium"
+              >Imagen</label
+            >
+            <input
+              type="file"
+              id="productImageInput"
+              accept="image/*"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input type="hidden" id="productImage" />
+          </div>
+          <button
+            id="submitProductBtn"
+            type="submit"
+            class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+          >
+            Guardar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal para Crear/Editar Categoría -->
+    <div
+      id="categoryModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+    >
+      <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+          <h3 id="categoryModalTitle" class="text-xl font-semibold">
+            Crear Nueva Categoría
+          </h3>
+          <button
+            id="closeCategoryModalBtn"
+            class="text-gray-500 hover:text-gray-700"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <form id="categoryForm" class="space-y-4">
+          <input type="hidden" id="categoryId" />
+          <div>
+            <label for="categoryName" class="block text-sm font-medium"
+              >Nombre</label
+            >
+            <input
+              type="text"
+              id="categoryName"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label for="categoryDescription" class="block text-sm font-medium"
+              >Descripción</label
+            >
+            <textarea
+              id="categoryDescription"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            ></textarea>
+          </div>
+          <button
+            id="submitCategoryBtn"
+            type="submit"
+            class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+          >
+            Guardar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal para Crear/Editar Marca -->
+    <div
+      id="brandModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+    >
+      <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+          <h3 id="brandModalTitle" class="text-xl font-semibold">
+            Crear Nueva Marca
+          </h3>
+          <button
+            id="closeBrandModalBtn"
+            class="text-gray-500 hover:text-gray-700"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <form id="brandForm" class="space-y-4">
+          <input type="hidden" id="brandId" />
+          <div>
+            <label for="brandName" class="block text-sm font-medium"
+              >Nombre</label
+            >
+            <input
+              type="text"
+              id="brandName"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label for="brandImageInput" class="block text-sm font-medium"
+              >Imagen</label
+            >
+            <input
+              type="file"
+              id="brandImageInput"
+              accept="image/*"
+              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input type="hidden" id="brandImage" />
+          </div>
+          <button
+            id="submitBrandBtn"
+            type="submit"
+            class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+          >
+            Guardar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal para Crear/Editar Automóvil (diseño mejorado) -->
+    <div
+      id="carModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden"
+    >
+      <div
+        class="bg-white rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-xl"
+      >
+        <!-- Encabezado del modal -->
+        <div
+          class="bg-blue-600 rounded-t-xl px-6 py-4 flex justify-between items-center"
+        >
+          <h3 id="carModalTitle" class="text-white text-2xl font-semibold">
+            Crear/Editar Automóvil
+          </h3>
+          <button id="closeCarModalBtn" class="text-white hover:text-gray-200">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Contenido del modal -->
+        <form id="carForm" class="px-6 py-6 space-y-6">
+          <input type="hidden" id="carId" />
+
+          <!-- Fila de dos columnas para Marca y Modelo -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                for="carBrandId"
+                class="block text-sm font-medium text-gray-700"
+                >Marca</label
+              >
+              <select
+                id="carBrandId"
+                class="mt-1 block w-full border border-gray-300 rounded-lg bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              >
+                <option value="">Seleccione una marca</option>
+                <!-- Opciones dinámicas -->
+              </select>
+            </div>
+            <div>
+              <label
+                for="carModel"
+                class="block text-sm font-medium text-gray-700"
+                >Modelo</label
+              >
+              <input
+                type="text"
+                id="carModel"
+                class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Ej. Corolla"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Fila de dos columnas para Año y Precio -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                for="carYear"
+                class="block text-sm font-medium text-gray-700"
+                >Año</label
+              >
+              <input
+                type="number"
+                id="carYear"
+                class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Ej. 2021"
+                required
+              />
+            </div>
+            <div>
+              <label
+                for="carPrice"
+                class="block text-sm font-medium text-gray-700"
+                >Precio</label
+              >
+              <div class="relative">
+                <span
+                  class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500"
+                  >$</span
+                >
+                <input
+                  type="number"
+                  id="carPrice"
+                  step="0.01"
+                  class="mt-1 block w-full border border-gray-300 rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="0.00"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila de dos columnas para Color y Kilometraje -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                for="carColor"
+                class="block text-sm font-medium text-gray-700"
+                >Color</label
+              >
+              <input
+                type="text"
+                id="carColor"
+                class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Ej. Rojo"
+              />
+            </div>
+            <div>
+              <label
+                for="carMileage"
+                class="block text-sm font-medium text-gray-700"
+                >Kilometraje</label
+              >
+              <div class="relative">
+                <input
+                  type="number"
+                  id="carMileage"
+                  class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Ej. 15000"
+                />
+                <span
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                  >km</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila de dos columnas para Tipo de Combustible y Transmisión -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                for="carFuelType"
+                class="block text-sm font-medium text-gray-700"
+                >Tipo de Combustible</label
+              >
+              <select
+                id="carFuelType"
+                class="mt-1 block w-full border border-gray-300 rounded-lg bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              >
+                <option value="">Seleccione tipo</option>
+                <option value="Gasolina">Gasolina</option>
+                <option value="Diésel">Diésel</option>
+                <option value="Eléctrico">Eléctrico</option>
+                <option value="Híbrido">Híbrido</option>
+              </select>
+            </div>
+            <div>
+              <label
+                for="carTransmission"
+                class="block text-sm font-medium text-gray-700"
+                >Transmisión</label
+              >
+              <select
+                id="carTransmission"
+                class="mt-1 block w-full border border-gray-300 rounded-lg bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              >
+                <option value="">Seleccione transmisión</option>
+                <option value="Manual">Manual</option>
+                <option value="Automática">Automática</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Descripción -->
+          <div>
+            <label
+              for="carDescription"
+              class="block text-sm font-medium text-gray-700"
+              >Descripción</label
+            >
+            <textarea
+              id="carDescription"
+              rows="3"
+              class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Detalles adicionales..."
+            ></textarea>
+          </div>
+
+          <!-- Estado e Imagen -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                for="carStatus"
+                class="block text-sm font-medium text-gray-700"
+                >Estado</label
+              >
+              <select
+                id="carStatus"
+                class="mt-1 block w-full border border-gray-300 rounded-lg bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                <option value="disponible">Disponible</option>
+                <option value="vendido">Vendido</option>
+                <option value="reservado">Reservado</option>
+              </select>
+            </div>
+            <div>
+              <label
+                for="carImageInput"
+                class="block text-sm font-medium text-gray-700"
+                >Imagen</label
+              >
+              <input
+                type="file"
+                id="carImageInput"
+                accept="image/*"
+                class="mt-1 block w-full text-gray-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              <input type="hidden" id="carImage" />
+            </div>
+          </div>
+
+          <!-- Botón Guardar -->
+          <div class="pt-4 border-t border-gray-200">
+            <button
+              id="submitCarBtn"
+              type="submit"
+              class="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition"
+            >
+              Guardar Cambios
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal para Ver/Editar Cotización -->
+    <div
+      id="quoteModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden"
+    >
+      <div
+        class="bg-white rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-xl"
+      >
+        <!-- Encabezado del modal -->
+        <div
+          class="bg-green-600 rounded-t-xl px-6 py-4 flex justify-between items-center"
+        >
+          <h3 id="quoteModalTitle" class="text-white text-2xl font-semibold">
+            Ver / Editar Cotización
+          </h3>
+          <button
+            id="closeQuoteModalBtn"
+            class="text-white hover:text-gray-200"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Contenido del modal -->
+        <form id="quoteForm" class="px-6 py-6 space-y-6">
+          <input type="hidden" id="quoteId" />
+
+          <!-- Repuesto -->
+          <div>
+            <label
+              for="quoteSparePartId"
+              class="block text-sm font-medium text-gray-700"
+              >Repuesto</label
+            >
+            <select
+              id="quoteSparePartId"
+              class="mt-1 block w-full border border-gray-300 rounded-lg bg-gray-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+              disabled
+            >
+              <option value="">Cargando...</option>
+            </select>
+          </div>
+
+          <!-- Nombre Completo -->
+          <div>
+            <label
+              for="quoteFullName"
+              class="block text-sm font-medium text-gray-700"
+              >Nombre Completo</label
+            >
+            <input
+              type="text"
+              id="quoteFullName"
+              class="mt-1 block w-full border border-gray-300 rounded-lg bg-gray-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+              disabled
+            />
+          </div>
+
+          <!-- Teléfono y Correo (fila de dos columnas) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                for="quotePhone"
+                class="block text-sm font-medium text-gray-700"
+                >Teléfono</label
+              >
+              <input
+                type="text"
+                id="quotePhone"
+                class="mt-1 block w-full border border-gray-300 rounded-lg bg-gray-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                disabled
+              />
+            </div>
+            <div>
+              <label
+                for="quoteEmail"
+                class="block text-sm font-medium text-gray-700"
+                >Correo</label
+              >
+              <input
+                type="email"
+                id="quoteEmail"
+                class="mt-1 block w-full border border-gray-300 rounded-lg bg-gray-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                disabled
+              />
+            </div>
+          </div>
+
+          <!-- Cantidad -->
+          <div>
+            <label
+              for="quoteQuantity"
+              class="block text-sm font-medium text-gray-700"
+              >Cantidad</label
+            >
+            <input
+              type="number"
+              id="quoteQuantity"
+              class="mt-1 block w-full border border-gray-300 rounded-lg bg-gray-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+              disabled
+            />
+          </div>
+
+          <!-- Comentario -->
+          <div>
+            <label
+              for="quoteComment"
+              class="block text-sm font-medium text-gray-700"
+              >Comentario</label
+            >
+            <textarea
+              id="quoteComment"
+              rows="3"
+              class="mt-1 block w-full border border-gray-300 rounded-lg bg-gray-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+              disabled
+              placeholder="Sin comentario"
+            ></textarea>
+          </div>
+
+          <!-- Estado y Fecha (fila de dos columnas) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                for="quoteStatus"
+                class="block text-sm font-medium text-gray-700"
+                >Estado</label
+              >
+              <select
+                id="quoteStatus"
+                class="mt-1 block w-full border border-gray-300 rounded-lg bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                required
+              >
+                <option value="pendiente">Pendiente</option>
+                <option value="procesando">Procesando</option>
+                <option value="completada">Completada</option>
+                <option value="cancelada">Cancelada</option>
+              </select>
+            </div>
+            <div>
+              <label
+                for="quoteCreatedAt"
+                class="block text-sm font-medium text-gray-700"
+                >Fecha</label
+              >
+              <input
+                type="text"
+                id="quoteCreatedAt"
+                class="mt-1 block w-full border border-gray-300 rounded-lg bg-gray-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                disabled
+              />
+            </div>
+          </div>
+
+          <!-- Botón Guardar -->
+          <div class="pt-4 border-t border-gray-200">
+            <button
+              id="submitQuoteBtn"
+              type="submit"
+              class="w-full bg-green-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-green-700 transition"
+            >
+              Guardar Cambios
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal para Ver/Editar Cita -->
+    <div
+      id="appointmentModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden"
+    >
+      <div
+        class="bg-white rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-xl"
+      >
+        <!-- Encabezado del modal -->
+        <div
+          class="bg-blue-600 rounded-t-xl px-6 py-4 flex justify-between items-center"
+        >
+          <h3
+            id="appointmentModalTitle"
+            class="text-white text-2xl font-semibold"
+          >
+            Ver / Editar Cita
+          </h3>
+          <button
+            id="closeAppointmentModalBtn"
+            class="text-white hover:text-gray-200"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Contenido del modal -->
+        <form id="appointmentForm" class="px-6 py-6 space-y-6">
+          <input type="hidden" id="appointmentId" />
+
+          <!-- Dropdown de Automóvil -->
+          <div>
+            <label
+              for="appointmentCarId"
+              class="block text-sm font-medium text-gray-700"
+              >Automóvil</label
+            >
+            <select
+              id="appointmentCarId"
+              class="mt-1 block w-full border border-gray-300 rounded-lg bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            >
+              <option value="">Cargando...</option>
+              <!-- Opciones dinámicas -->
+            </select>
+          </div>
+
+          <!-- Nombre Completo -->
+          <div>
+            <label
+              for="appointmentFullName"
+              class="block text-sm font-medium text-gray-700"
+              >Nombre Completo</label
+            >
+            <input
+              type="text"
+              id="appointmentFullName"
+              class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            />
+          </div>
+
+          <!-- Teléfono y Correo (fila de dos columnas) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                for="appointmentPhone"
+                class="block text-sm font-medium text-gray-700"
+                >Teléfono</label
+              >
+              <input
+                type="text"
+                id="appointmentPhone"
+                class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              />
+            </div>
+            <div>
+              <label
+                for="appointmentEmail"
+                class="block text-sm font-medium text-gray-700"
+                >Correo</label
+              >
+              <input
+                type="email"
+                id="appointmentEmail"
+                class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Fecha y Hora (dos columnas) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                for="appointmentDate"
+                class="block text-sm font-medium text-gray-700"
+                >Fecha</label
+              >
+              <input
+                type="date"
+                id="appointmentDate"
+                class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              />
+            </div>
+            <div>
+              <label
+                for="appointmentTime"
+                class="block text-sm font-medium text-gray-700"
+                >Hora</label
+              >
+              <input
+                type="time"
+                id="appointmentTime"
+                class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Comentario -->
+          <div>
+            <label
+              for="appointmentComment"
+              class="block text-sm font-medium text-gray-700"
+              >Comentario</label
+            >
+            <textarea
+              id="appointmentComment"
+              rows="3"
+              class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Opcional"
+            ></textarea>
+          </div>
+
+          <!-- Estado -->
+          <div>
+            <label
+              for="appointmentStatus"
+              class="block text-sm font-medium text-gray-700"
+              >Estado</label
+            >
+            <select
+              id="appointmentStatus"
+              class="mt-1 block w-full border border-gray-300 rounded-lg bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            >
+              <option value="pendiente">Pendiente</option>
+              <option value="confirmada">Confirmada</option>
+              <option value="cancelada">Cancelada</option>
+            </select>
+          </div>
+
+          <!-- Creado en (readonly) -->
+          <div>
+            <label
+              for="appointmentCreatedAt"
+              class="block text-sm font-medium text-gray-700"
+              >Creado</label
+            >
+            <input
+              type="text"
+              id="appointmentCreatedAt"
+              class="mt-1 block w-full border border-gray-300 rounded-lg bg-gray-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              disabled
+            />
+          </div>
+
+          <!-- Botón Guardar -->
+          <div class="pt-4 border-t border-gray-200">
+            <button
+              id="submitAppointmentBtn"
+              type="submit"
+              class="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition"
+            >
+              Guardar Cambios
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- =======================================
+         Carga de scripts (orden importante)
+         ======================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <!-- 1) auth.js -->
+    <script src="js/admin/auth.js"></script>
+    <!-- 2) utils.js -->
+    <script src="js/admin/utils.js"></script>
+    <!-- 3) Módulos individuales -->
+    <script src="js/admin/users.js"></script>
+    <script src="js/admin/products.js"></script>
+    <script src="js/admin/categories.js"></script>
+    <script src="js/admin/brands.js"></script>
+    <script src="js/admin/cars.js"></script>
+    <script src="js/admin/dashboard.js"></script>
+    <!-- 4) cotizaciones.js (opcional, si aún usas cotizaciones) -->
+    <script src="js/admin/cotizaciones.js"></script>
+    <!-- 5) citas.js -->
+    <script src="js/admin/citas.js"></script>
+    <!-- 6) main.js -->
+    <script src="js/admin/main.js"></script>
+  </body>
+</html>

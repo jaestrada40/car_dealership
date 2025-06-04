@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autos por Marca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <header class="bg-gray-900 text-white sticky top-0 z-50 shadow">
+      <div
+        class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <h1 class="text-2xl font-bold">
+          <img
+            src="uploads/logo-Photoroom.png"
+            alt="AutoMontgomery"
+            class="h-[6rem] w-auto"
+          />
+        </h1>
+        <div class="flex items-center gap-8">
+          <button id="mobileMenuBtn" class="md:hidden focus:outline-none">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+          <nav id="menu" class="hidden md:flex gap-8 font-medium text-lg">
+            <a
+              href="index.html"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Inicio</a
+            >
+            <a
+              href="all_brands.html"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Marcas</a
+            >
+            <a
+              href="#cars"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Vehículos</a
+            >
+            <a
+              href="all_parts.html"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Repuestos</a
+            >
+          </nav>
+          <div
+            id="mobileMenu"
+            class="hidden absolute top-full left-0 w-full bg-gray-900 text-white flex flex-col items-center gap-4 py-4 md:hidden"
+          >
+            <a
+              href="index.html"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Inicio</a
+            >
+            <a
+              href="all_brands.html"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Marcas</a
+            >
+            <a
+              href="#cars"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Vehículos</a
+            >
+            <a
+              href="all_parts.html"
+              class="hover:text-blue-400 transition-colors duration-200"
+              >Repuestos</a
+            >
+          </div>
+          <div class="relative">
+            <button id="userIcon">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                ></path>
+              </svg>
+            </button>
+            <div
+              id="userDropdown"
+              class="absolute right-0 mt-2 w-48 bg-white text-gray-900 rounded-lg shadow-xl hidden"
+            >
+              <button
+                id="loginBtn"
+                class="block w-full text-left px-4 py-3 hover:bg-gray-100 transition"
+              >
+                Ingresar
+              </button>
+              <a
+                href="profile.html"
+                id="viewProfileBtn"
+                class="block w-full text-left px-4 py-3 hover:bg-gray-100 transition hidden"
+                >Ver Perfil</a
+              >
+              <button
+                id="logoutBtn"
+                class="block w-full text-left px-4 py-3 hover:bg-gray-100 transition hidden"
+              >
+                Cerrar Sesión
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-10">
+      <h2 id="brandTitle" class="text-3xl font-bold text-center mb-8">
+        Autos de Marca
+      </h2>
+      <div
+        id="brandCarGrid"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <!-- Aquí se insertarán los autos -->
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-16">
+      <div
+        class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
+      >
+        <div>
+          <h4 class="text-xl font-semibold mb-3">AutosMontgomery</h4>
+          <p class="text-sm text-gray-400">
+            Tu concesionario de confianza para autos y repuestos de calidad.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-3">Navegación</h4>
+          <ul class="text-sm space-y-2">
+            <li><a href="index.html" class="hover:text-blue-400">Inicio</a></li>
+            <li>
+              <a href="all_brands.html" class="hover:text-blue-400">Marcas</a>
+            </li>
+            <li><a href="#cars" class="hover:text-blue-400">Vehículos</a></li>
+            <li>
+              <a href="all_parts.html" class="hover:text-blue-400">Repuestos</a>
+            </li>
+            <li><a href="cart.html" class="hover:text-blue-400">Carrito</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-3">Contacto</h4>
+          <ul class="text-sm space-y-2 text-gray-400">
+            <li>Email: info@automotgomery.com</li>
+            <li>Tel: +502 1234 5678</li>
+            <li>Ciudad de Guatemala, GT</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-3">Síguenos</h4>
+          <div class="flex gap-4">
+            <a href="#" class="hover:text-blue-400">Facebook</a>
+            <a href="#" class="hover:text-blue-400">Instagram</a>
+            <a href="#" class="hover:text-blue-400">Twitter</a>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-800 text-center text-sm text-gray-400 py-4">
+        © 2025 AutoPrime. Todos los derechos reservados.
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+      AOS.init({ duration: 800, once: true });
+
+      // Control del menú móvil
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+      }
+    </script>
+    <script src="./js/brand_cars.js"></script>
+    <script src="./js/cart-ui.js"></script>
+  </body>
+</html>

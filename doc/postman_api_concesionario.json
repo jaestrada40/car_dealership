@@ -1,0 +1,87 @@
+{
+  "info": {
+    "name": "API Concesionario",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login Usuario",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"identifier\": \"admin\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost/car_dealership/backend/auth/login_user.php",
+          "host": [
+            "http://localhost"
+          ],
+          "path": [
+            "car_dealership",
+            "backend",
+            "auth",
+            "login_user.php"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Repuestos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost/car_dealership/backend/spare_parts/get_spare_parts.php",
+          "host": [
+            "http://localhost"
+          ],
+          "path": [
+            "car_dealership",
+            "backend",
+            "spare_parts",
+            "get_spare_parts.php"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear Pedido",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer TU_TOKEN_AQUI"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"payment_method\": \"tarjeta\",\n  \"address\": \"Zona 15, Guatemala\",\n  \"items\": [\n    {\n      \"spare_part_id\": 1,\n      \"quantity\": 2,\n      \"price_unit\": 50.0\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost/car_dealership/backend/orders/create_order.php",
+          "host": [
+            "http://localhost"
+          ],
+          "path": [
+            "car_dealership",
+            "backend",
+            "orders",
+            "create_order.php"
+          ]
+        }
+      }
+    }
+  ]
+}
